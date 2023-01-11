@@ -1,7 +1,20 @@
 const inquirer = require('inquirer');
 const consoleTable = require('console.table')
 const mysql = require('mysql2');
-const db = require('./config/connection');
+
+// Connect to database
+const db = mysql.createConnection(
+  {
+    host: "localhost",
+    // MySQL username,
+    user: "root",
+    // TODO: Add MySQL password here
+    password: "Smalls9690!",
+    database: "employees_db",
+  },
+  console.log(`Connected to the database.`)
+);
+
 
 // inquirer to prompt in command line
 
