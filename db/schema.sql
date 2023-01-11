@@ -1,8 +1,8 @@
 
-DROP DATABASE IF EXISTS workplace_db;
-CREATE DATABASE workplace_db;
+DROP DATABASE IF EXISTS employees_db;
+CREATE DATABASE employees_db;
 
-USE workplace_db;
+USE employees_db;
 
 -- department
 -- id: INT PRIMARY KEY
