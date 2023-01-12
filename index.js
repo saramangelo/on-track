@@ -55,53 +55,63 @@ function askPromptQuestions() {
     });
   }
 
+  function viewAllDepartments() {
+    Queries.viewAllDepartments(department)
+  };
 
+  function viewAllRoles() {
+    Queries.viewAllDepartments(role)
+  };
+
+  function viewAllEmployees() {
+    Queries.viewAllDepartments(employee)
+  };
+
+  function addDepartment() {
+    Queries.viewAllDepartments(department)
+  };
+
+  function addRole() {
+    Queries.viewAllDepartments(role).then(([rows]) => {
+            let departments = rows;
+            const departmentChoices = departments.map(({ id, name }) => ({
+              name: name,
+              value: id
+            }));
+      
+            prompt([
+              {
+                name: "title",
+                message: "What is the name of the role?"
+              },
+              {
+                name: "salary",
+                message: "What is the salary of the role?"
+              },
+              {
+                type: "list",
+                name: "department_id",
+                message: "Which department does the role belong to?",
+                choices: departmentChoices
+              }
+            ])
+              .then(role => {
+                db.createRole(role)
+                  .then(() => console.log(`Added ${role.title} to the database`))
+                  .then(() => loadMainPrompts())
+              })
+          })
+  };
 
   function AddEmployee() {
     // const employee = { information from prompt I have yet to create}
-    Queries.createEmployee(employee)
+    Queries.addEmployee(employee)
   };
 
-  function ViewAllDepartments() {
-    
-  }
 
 
-  // function addRole() {
-  //   Queries.findAllDepartments() --> needs to come from Class
-  //     .then(([rows]) => {
-  //       let departments = rows;
-  //       const departmentChoices = departments.map(({ id, name }) => ({
-  //         name: name,
-  //         value: id
-  //       }));
-  
-  //       prompt([
-  //         {
-  //           name: "title",
-  //           message: "What is the name of the role?"
-  //         },
-  //         {
-  //           name: "salary",
-  //           message: "What is the salary of the role?"
-  //         },
-  //         {
-  //           type: "list",
-  //           name: "department_id",
-  //           message: "Which department does the role belong to?",
-  //           choices: departmentChoices
-  //         }
-  //       ])
-  //         .then(role => {
-  //           db.createRole(role)
-  //             .then(() => console.log(`Added ${role.title} to the database`))
-  //             .then(() => loadMainPrompts())
-  //         })
-  //     })
-  // }
 
-
-  // these functions above are not correct, I need to update with either more prompts or a db.query to CRUD db
+  // I need to update with either more prompts / a db.query to CRUD db
   // console.table is like console log to display table
 
   
