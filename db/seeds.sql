@@ -21,5 +21,17 @@ INSERT INTO role (title, salary, department_id)
 
 -- manager_id?
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-("Sara", "Angelo", 4, )
+("Sara", "Angelo", 4, ),
+("Brad", "Pitt", 5, ),
+("Keanu", "Reeves", 4, ),
+("Margot", "Robbie", 9, ),
+("Robert", "DeNiro", 3, ),
+("Cameron", "Diaz", 5, ),
+("Adam", "Sandler", 6, ),
+("Jennifer", "Anniston", 2, ),
+("Meryl", "Streep", 1, ),
+("Dwayne", "Johnson", 8, ),
+("Robert", "Downey Jr.", 5, ),
+("Ben", "Affleck", 7, ),
+("Nicholas", "Cage", 6, );
 

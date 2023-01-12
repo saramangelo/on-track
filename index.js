@@ -96,9 +96,9 @@ function askPromptQuestions() {
               }
             ])
               .then(role => {
-                db.createRole(role)
+                Queries.addRole(role)
                   .then(() => console.log(`Added ${role.title} to the database`))
-                  .then(() => loadMainPrompts())
+                  .then(() => askPromptQuestions)
               })
           })
   };
