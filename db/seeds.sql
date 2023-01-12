@@ -1,3 +1,10 @@
 USE employees_db;
 
-INSERT INTO 
+INSERT INTO department (name)
+("Human Resources"),
+("Accounting"),
+("Labor Relations"),
+("Administration"),
+("Finance"),
+("Engineering"),
+
