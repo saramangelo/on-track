@@ -22,31 +22,31 @@ function askPromptQuestions() {
     // data = giant object (answers from input)
     .then((answers) => {
       // console.log(answers);
-      // each of these will be a promise / async await (Michael thinks this is cleaner)
+      // each of these will be a promise / async await
       if (answers.optionSelection === "View all departments") {
-        ViewAllDepartments();
+        viewAllDepartments();
       }
       if (answers.optionSelection === "View all roles") {
-        ViewAllRoles();
+        viewAllRoles();
       }
       if (answers.optionSelection === "View all employees") {
-        ViewAllEmployees();
+        viewAllEmployees();
       }
       if (answers.optionSelection === "Add a department") {
-        AddDepartment();
+        addDepartment();
         // not dependent upon anything else
       }
       if (answers.optionSelection === "Add a role") {
-        AddRole();
+        addRole();
         // have to give user a selection of dept
         // dependent upon dept and emp
       }
       if (answers.optionSelection === "Add an employee") {
-        AddEmployee();
+        addEmployee();
         // dependent upon role and dept
       }
       if (answers.optionSelection === "Update an employee role") {
-        UpdateEmployeeRole();
+        updateEmployeeRole();
         // query db to list emp
         // query specific emp
         // update spec emp
@@ -103,7 +103,7 @@ function askPromptQuestions() {
           })
   };
 
-  function AddEmployee() {
+  function addEmployee() {
     // const employee = { information from prompt I have yet to create}
     Queries.addEmployee(employee)
   };

@@ -1,16 +1,17 @@
 const mysql = require('mysql2');
+require('dotenv').config();
 
 // Connect to database
 const db = mysql.createConnection(
+
+      process.env.DB_NAME,
+      process.env.DB_USER,
+      process.env.DB_PASSWORD,
     {
       host: "localhost",
-      // MySQL username,
-      user: "root",
-      // TODO: Add MySQL password here
-      password: "Smalls9690!",
-      database: "employees_db",
-    },
-    console.log(`Connected to the database.`)
+      dialect: "mysql",
+      port: 3001,
+    }
   );
   db.connect(function (err){
     if(err) {
