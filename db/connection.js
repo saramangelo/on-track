@@ -10,7 +10,7 @@ const db = mysql.createConnection(
     {
       host: "localhost",
       dialect: "mysql",
-      port: 3001,
+      port: 3306,
     }
   );
   db.connect(function (err){
