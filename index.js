@@ -1,19 +1,6 @@
 const inquirer = require('inquirer');
-const consoleTable = require('console.table')
-const mysql = require('mysql2');
-
-// Connect to database
-const db = mysql.createConnection(
-  {
-    host: "localhost",
-    // MySQL username,
-    user: "root",
-    // TODO: Add MySQL password here
-    password: "Smalls9690!",
-    database: "employees_db",
-  },
-  console.log(`Connected to the database.`)
-);
+const consoleTable = require('console.table');
+const Queries = require('./db/index');
 
 
 // inquirer to prompt in command line
@@ -37,28 +24,29 @@ function askPromptQuestions() {
       // console.log(answers);
       // each of these will be a promise / async await (Michael thinks this is cleaner)
       if (answers.optionSelection === "View all departments") {
-        promptViewAllDepartments();
+        ViewAllDepartments();
       }
       if (answers.optionSelection === "View all roles") {
-        promptViewAllRoles();
+        ViewAllRoles();
       }
       if (answers.optionSelection === "View all employees") {
-        promptViewAllEmployees();
+        ViewAllEmployees();
       }
       if (answers.optionSelection === "Add a department") {
-        promptAddDepartment();
+        AddDepartment();
         // not dependent upon anything else
       }
       if (answers.optionSelection === "Add a role") {
-        promptAddRole();
+        AddRole();
+        // have to give user a selection of dept
         // dependent upon dept and emp
       }
       if (answers.optionSelection === "Add an employee") {
-        promptAddEmployee();
+        AddEmployee();
         // dependent upon role and dept
       }
       if (answers.optionSelection === "Update an employee role") {
-        promptUpdateEmployeeRole();
+        UpdateEmployeeRole();
         // query db to list emp
         // query specific emp
         // update spec emp
@@ -67,9 +55,54 @@ function askPromptQuestions() {
     });
   }
 
+
+
+  function AddEmployee() {
+    // const employee = { information from prompt I have yet to create}
+    Queries.createEmployee(employee)
+  };
+
+  function ViewAllDepartments() {
+    
+  }
+
+
+  // function addRole() {
+  //   Queries.findAllDepartments() --> needs to come from Class
+  //     .then(([rows]) => {
+  //       let departments = rows;
+  //       const departmentChoices = departments.map(({ id, name }) => ({
+  //         name: name,
+  //         value: id
+  //       }));
+  
+  //       prompt([
+  //         {
+  //           name: "title",
+  //           message: "What is the name of the role?"
+  //         },
+  //         {
+  //           name: "salary",
+  //           message: "What is the salary of the role?"
+  //         },
+  //         {
+  //           type: "list",
+  //           name: "department_id",
+  //           message: "Which department does the role belong to?",
+  //           choices: departmentChoices
+  //         }
+  //       ])
+  //         .then(role => {
+  //           db.createRole(role)
+  //             .then(() => console.log(`Added ${role.title} to the database`))
+  //             .then(() => loadMainPrompts())
+  //         })
+  //     })
+  // }
+
+
   // these functions above are not correct, I need to update with either more prompts or a db.query to CRUD db
-
-
+  // console.table is like console log to display table
 
   
 
