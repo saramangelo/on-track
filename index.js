@@ -6,6 +6,7 @@ const Queries = require('./db/index');
 // inquirer to prompt in command line
 
 // array of questions
+
 const options = [
     {
       type: "list",

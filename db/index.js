@@ -1,5 +1,5 @@
 // hold classes with methods to run queries
-const db = require('./connection');
+const connection = require('./connection');
 
 class Queries {
 
@@ -44,4 +44,4 @@ class Queries {
 
 
 
-module.exports = new Queries(db);
+module.exports = new Queries(connection);
