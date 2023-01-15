@@ -1,19 +1,26 @@
-const inquirer = require('inquirer');
-const consoleTable = require('console.table');
-const Queries = require('./db/index');
-
+const inquirer = require("inquirer");
+const consoleTable = require("console.table");
+const Queries = require("./Queries");
 
 // inquirer to prompt in command line
 
 // array of questions
 
 const options = [
-    {
-      type: "list",
-      message: "Please select from the list what would you like to do:",
-      choices: ["View all departments", "View all roles", "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role"],
-      name: "optionSelection",
-    },
+  {
+    type: "list",
+    message: "Please select from the list what would you like to do:",
+    choices: [
+      "View all departments",
+      "View all roles",
+      "View all employees",
+      "Add a department",
+      "Add a role",
+      "Add an employee",
+      "Update an employee role",
+    ],
+    name: "optionSelection",
+  },
 ];
 
 function askPromptQuestions() {
@@ -51,70 +58,65 @@ function askPromptQuestions() {
         // query db to list emp
         // query specific emp
         // update spec emp
-        // 
+        //
       }
     });
-  }
+}
 
-  function viewAllDepartments() {
-    Queries.viewAllDepartments(department)
-    console.log(department)
-  };
+function viewAllDepartments() {
+  Queries.viewAllDepartments(department);
+  console.log(department);
+}
 
-  function viewAllRoles() {
-    Queries.viewAllDepartments(role)
-  };
+function viewAllRoles() {
+  Queries.viewAllRoles(role);
+}
 
-  function viewAllEmployees() {
-    Queries.viewAllDepartments(employee)
-  };
+function viewAllEmployees() {
+  Queries.viewAllEmployees(employee);
+}
 
-  function addDepartment() {
-    Queries.viewAllDepartments(department)
-  };
+function addDepartment() {
+  Queries.addDepartment(department);
+}
 
-  function addRole() {
-    Queries.viewAllDepartments(role).then(([rows]) => {
-            let departments = rows;
-            const departmentChoices = departments.map(({ id, name }) => ({
-              name: name,
-              value: id
-            }));
-      
-            prompt([
-              {
-                name: "title",
-                message: "What is the name of the role?"
-              },
-              {
-                name: "salary",
-                message: "What is the salary of the role?"
-              },
-              {
-                type: "list",
-                name: "department_id",
-                message: "Which department does the role belong to?",
-                choices: departmentChoices
-              }
-            ])
-              .then(role => {
-                Queries.addRole(role)
-                  .then(() => console.log(`Added ${role.title} to the database`))
-                  .then(() => askPromptQuestions)
-              })
-          })
-  };
+function addRole() {
+  Queries.addRole(role).then(([rows]) => {
+    let departments = rows;
+    const departmentChoices = departments.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
 
-  function addEmployee() {
-    // const employee = { information from prompt I have yet to create}
-    Queries.addEmployee(employee)
-  };
+    prompt([
+      {
+        name: "title",
+        message: "What is the name of the role?",
+      },
+      {
+        name: "salary",
+        message: "What is the salary of the role?",
+      },
+      {
+        type: "list",
+        name: "department_id",
+        message: "Which department does the role belong to?",
+        choices: departmentChoices,
+      },
+    ]).then((role) => {
+      Queries.addRole(role)
+        .then(() => console.log(`Added ${role.title} to the database`))
+        .then(() => askPromptQuestions);
+    });
+  });
+}
 
+function addEmployee() {
+  // const employee = { information from prompt I have yet to create}
+  Queries.addEmployee(employee);
+}
 
+// I need to update with either more prompts / a db.query to CRUD db
+// console.table is like console log to display table
 
-
-  // I need to update with either more prompts / a db.query to CRUD db
-  // console.table is like console log to display table
-
-  
-
+askPromptQuestions();
