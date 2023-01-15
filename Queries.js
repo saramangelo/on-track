@@ -32,6 +32,9 @@ class Queries {
 
   addRole(data) {
     // this needs to have user be prompted to enter the name, salary, and department for the role and that role is added to the database
+    return this.connection
+    .promise()
+    .query("INSERT INTO role (name) VALUES (?)", data);
   }
 
   addEmployee(data) {
@@ -43,7 +46,7 @@ class Queries {
 
   updateEmployeeRole(data) {
     // this needs to have user be prompted to select an employee to update and their new role and this information is updated in the database
-    return this.connection.promise().query("UPDATE employee SET ");
+    return this.connection.promise().query("UPDATE employee SET ", data);
   }
 }
 

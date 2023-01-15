@@ -23,6 +23,12 @@ const options = [
   },
 ];
 
+
+
+function init() {
+  askPromptQuestions();
+}
+
 function askPromptQuestions() {
   inquirer
     .prompt(options)
@@ -119,4 +125,4 @@ function addEmployee() {
 // I need to update with either more prompts / a db.query to CRUD db
 // console.table is like console log to display table
 
-askPromptQuestions();
+init();
