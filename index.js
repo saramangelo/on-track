@@ -58,6 +58,7 @@ function askPromptQuestions() {
 
   function viewAllDepartments() {
     Queries.viewAllDepartments(department)
+    console.log(department)
   };
 
   function viewAllRoles() {

@@ -11,7 +11,7 @@ class Queries {
 
     viewAllDepartments(data) {
         // this needs to present a formatted table showing department names and department ids
-        return this.connection.promise().query('', data)
+        return this.connection.promise().query('SELECT * FROM department', data)
     };
 
     viewAllRoles(data) {
