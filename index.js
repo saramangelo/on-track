@@ -70,16 +70,21 @@ function askPromptQuestions() {
 }
 
 function viewAllDepartments() {
-  Queries.viewAllDepartments(department);
-  console.log(department);
+  Queries.viewAllDepartments().then((department) => {
+    console.table(department);
+  });
 }
 
 function viewAllRoles() {
-  Queries.viewAllRoles(role);
+  Queries.viewAllRoles().then((roles) => {
+    console.table(roles);
+  });
 }
 
 function viewAllEmployees() {
-  Queries.viewAllEmployees(employee);
+  Queries.viewAllEmployees().then((employees) => {
+    console.table(employees);
+  });
 }
 
 function addDepartment() {

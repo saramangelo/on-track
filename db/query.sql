@@ -10,16 +10,22 @@ SELECT * FROM roles;
 SELECT * FROM employees;
 
 -- add department
-INSERT INTO department (name) VALUES (?)
+INSERT INTO department (name) VALUES (?);
 
 -- add role
 INSERT INTO role 
 
 -- add employee
-INSERT INTO employee (first_name) VALUES (?)
+INSERT INTO employee (first_name) VALUES (?);
 
 -- update employee role
 UPDATE employee SET role
+
+-- JOINS
+
+SELECT * 
+FROM role
+JOIN department ON role.department_id = department.id
 
 
 
