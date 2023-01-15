@@ -9,6 +9,7 @@ class Queries {
   // methods
 
   viewAllDepartments(data) {
+    console.log(data)
     // this needs to present a formatted table showing department names and department ids
     return this.connection.promise().query("SELECT * FROM department", data);
   }
