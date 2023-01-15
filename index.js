@@ -18,6 +18,7 @@ const options = [
       "Add a role",
       "Add an employee",
       "Update an employee role",
+      "Start over"
     ],
     name: "optionSelection",
   },
@@ -66,29 +67,65 @@ function askPromptQuestions() {
         // update spec emp
         //
       }
+      if (answers.optionSelection === "Start over") {
+        return askPromptQuestions();
+      }
     });
 }
 
 function viewAllDepartments() {
-  Queries.viewAllDepartments().then((department) => {
-    console.table(department);
+  Queries.viewAllDepartments().then(([rows]) => {
+    let departments = rows;
+    console.table(departments)
+    .then(() => askPromptQuestions)
   });
 }
 
 function viewAllRoles() {
-  Queries.viewAllRoles().then((roles) => {
-    console.table(roles);
+  Queries.viewAllRoles().then(([rows]) => {
+    let roles = rows;
+    console.table(roles)
+    .then(() => askPromptQuestions)
   });
 }
 
 function viewAllEmployees() {
-  Queries.viewAllEmployees().then((employees) => {
-    console.table(employees);
+  Queries.viewAllEmployees().then(([rows]) => {
+    let employees = rows;
+    console.table(employees)
+    .then(() => askPromptQuestions)
   });
 }
 
 function addDepartment() {
-  Queries.addDepartment(department);
+  Queries.addDepartment(departments).then(([rows]) => {
+    let departments = rows;
+    const departmentChoices = departments.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
+
+    prompt([
+      {
+        name: "title",
+        message: "What is the name of the role?",
+      },
+      {
+        name: "salary",
+        message: "What is the salary of the role?",
+      },
+      {
+        type: "list",
+        name: "department_id",
+        message: "Which department does the role belong to?",
+        choices: departmentChoices,
+      },
+    ]).then((role) => {
+      Queries.addRole(role)
+        .then(() => console.log(`Added ${department.name} to the database`))
+        .then(() => askPromptQuestions);
+    });
+  });
 }
 
 function addRole() {
