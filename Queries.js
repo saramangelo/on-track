@@ -34,14 +34,14 @@ class Queries {
     // this needs to have user be prompted to enter the name, salary, and department for the role and that role is added to the database
     return this.connection
     .promise()
-    .query("INSERT INTO role (name) VALUES (?)", data);
+    .query("INSERT INTO role (title, salary, department_id) VALUES (?,?,?)", data);
   }
 
   addEmployee(data) {
     // this needs to have user be prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
     return this.connection
       .promise()
-      .query("INSERT INTO employee (first_name) VALUES (?)", data);
+      .query("INSERT INTO employee (first_name, last_name, role, manager) VALUES (?,?,?,?)", data);
   }
 
   updateEmployeeRole(data) {
