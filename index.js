@@ -108,7 +108,7 @@ function addDepartment() {
     prompt([
       {
         name: "title",
-        message: "What is the name of the role?",
+        message: "What is the name of the department?",
       },
       {
         name: "salary",
@@ -162,6 +162,10 @@ function addRole() {
 function addEmployee() {
   // const employee = { information from prompt I have yet to create}
   Queries.addEmployee(employee);
+}
+
+function updateEmployeeRole() {
+  Queries.updateEmployeeRole()
 }
 
 // I need to update with either more prompts / a db.query to CRUD db
