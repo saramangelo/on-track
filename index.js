@@ -1,7 +1,6 @@
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
 const Queries = require("./Queries");
-
 // inquirer to prompt in command line
 
 // array of questions
@@ -18,13 +17,11 @@ const options = [
       "Add a role",
       "Add an employee",
       "Update an employee role",
-      "Start over"
+      "Start over",
     ],
     name: "optionSelection",
   },
 ];
-
-
 
 function init() {
   askPromptQuestions();
@@ -76,87 +73,78 @@ function askPromptQuestions() {
 function viewAllDepartments() {
   Queries.viewAllDepartments().then(([rows]) => {
     let departments = rows;
-    console.table(departments)
-    .then(() => askPromptQuestions)
+    console.table(departments);
+    askPromptQuestions();
   });
 }
 
 function viewAllRoles() {
   Queries.viewAllRoles().then(([rows]) => {
     let roles = rows;
-    console.table(roles)
-    .then(() => askPromptQuestions)
+    console.table(roles);
+    askPromptQuestions();
   });
 }
 
 function viewAllEmployees() {
-  Queries.viewAllEmployees().then(([rows]) => {
-    let employees = rows;
-    console.table(employees)
-    .then(() => askPromptQuestions)
-  });
+  Queries.viewAllEmployees()
+    .then(([rows]) => {
+      let employees = rows;
+      console.table(employees);
+    })
+    .then(() => askPromptQuestions);
 }
 
 function addDepartment() {
-  Queries.addDepartment(departments).then(([rows]) => {
-    let departments = rows;
-    const departmentChoices = departments.map(({ id, name }) => ({
-      name: name,
-      value: id,
-    }));
-
-    prompt([
-      {
-        name: "title",
-        message: "What is the name of the department?",
-      },
-      {
-        name: "salary",
-        message: "What is the salary of the role?",
-      },
-      {
-        type: "list",
-        name: "department_id",
-        message: "Which department does the role belong to?",
-        choices: departmentChoices,
-      },
-    ]).then((role) => {
-      Queries.addRole(role)
-        .then(() => console.log(`Added ${department.name} to the database`))
-        .then(() => askPromptQuestions);
-    });
+  inquirer.prompt([
+    {
+      name: "departmentName",
+      message: "What is the name of the department?",
+      type: "input",
+    },
+  ]).then((answers) => {
+    Queries.addDepartment(answers.departmentName)
+      .then((response) => {
+        console.log(`Added ${answers.departmentName} to the database`);
+        askPromptQuestions();
+      })
+      .catch((error) => {
+        console.log(error);
+        askPromptQuestions();
+      });
   });
 }
 
 function addRole() {
-  Queries.addRole(role).then(([rows]) => {
-    let departments = rows;
-    const departmentChoices = departments.map(({ id, name }) => ({
-      name: name,
-      value: id,
-    }));
+  Queries.addRole(role)
+    .then(([rows]) => {
+      let departments = rows;
+      const departmentChoices = departments.map(({ id, name }) => ({
+        name: name,
+        value: id,
+      }));
 
-    prompt([
-      {
-        name: "title",
-        message: "What is the name of the role?",
-      },
-      {
-        name: "salary",
-        message: "What is the salary of the role?",
-      },
-      {
-        type: "list",
-        name: "department_id",
-        message: "Which department does the role belong to?",
-        choices: departmentChoices,
-      },
-    ]).then((role) => {
-      Queries.addRole(role)
-        .then(() => console.log(`Added ${role.title} to the database`))
-        .then(() => askPromptQuestions);
-    });
-  });
+      prompt([
+        {
+          name: "title",
+          message: "What is the name of the role?",
+        },
+        {
+          name: "salary",
+          message: "What is the salary of the role?",
+        },
+        {
+          type: "list",
+          name: "department_id",
+          message: "Which department does the role belong to?",
+          choices: departmentChoices,
+        },
+      ]).then((role) => {
+        Queries.addRole(role);
+        console.log(`Added ${role.title} to the database`);
+      });
+    })
+    .then(() => askPromptQuestions);
 }
 
 function addEmployee() {
@@ -165,7 +153,7 @@ function addEmployee() {
 }
 
 function updateEmployeeRole() {
-  Queries.updateEmployeeRole()
+  Queries.updateEmployeeRole();
 }
 
 // I need to update with either more prompts / a db.query to CRUD db

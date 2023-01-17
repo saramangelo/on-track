@@ -16,7 +16,10 @@ class Queries {
 
   viewAllRoles() {
     // this needs to present the job title, role id, dept that role belongs to, and salary for that role
-    return this.connection.promise().query("SELECT * FROM roles");
+    return this.connection.promise().query(`
+    SELECT role.title, role.id, role.salary, department.name AS department_name FROM role
+    LEFT JOIN department
+    ON role.department_id = department.id`);
   }
 
   viewAllEmployees() {
@@ -24,11 +27,11 @@ class Queries {
     return this.connection.promise().query("SELECT * FROM employees");
   }
 
-  addDepartment() {
+  addDepartment(departmentName) {
     // this needs to have user be prompted to enter the name of the department and that department is added to the database
     return this.connection
       .promise()
-      .query("INSERT INTO department (name) VALUES (?)");
+      .query("INSERT INTO department (name) VALUES (?)", [departmentName]);
   }
 
   addRole() {

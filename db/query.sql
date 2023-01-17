@@ -4,10 +4,17 @@
 SELECT * FROM department;
 
 -- view all roles
-SELECT * FROM roles;
+USE employees_db;
+
+SELECT role.title, role.id, role.salary, department.name AS department_name FROM role
+LEFT JOIN department
+ON role.department_id = department.id;
 
 -- view all employees
-SELECT * FROM employees;
+SELECT
+-- need two joins
+-- department name onto role
+-- department name onto employee
 
 -- add department
 INSERT INTO department (name) VALUES (?);
