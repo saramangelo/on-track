@@ -4,7 +4,6 @@ const Queries = require("./Queries");
 // inquirer to prompt in command line
 
 // array of questions
-
 const options = [
   {
     type: "list",
@@ -116,36 +115,43 @@ function addDepartment() {
 }
 
 function addRole() {
-  Queries.addRole(role)
+  Queries.addRole()
     .then(([rows]) => {
       let departments = rows;
       const departmentChoices = departments.map(({ id, name }) => ({
         name: name,
         value: id,
-      }));
-
-      prompt([
+      }))
+    });
+      inquirer.prompt([
         {
           name: "title",
           message: "What is the name of the role?",
+          type: 'input',
         },
         {
           name: "salary",
           message: "What is the salary of the role?",
+          type: 'input',
         },
         {
           type: "list",
-          name: "department_id",
+          name: "departmentId",
           message: "Which department does the role belong to?",
           choices: departmentChoices,
         },
-      ]).then((role) => {
-        Queries.addRole(role);
-        console.log(`Added ${role.title} to the database`);
+      ]).then((answers) => {
+        Queries.addDepartment(answers.departmentName)
+          .then((response) => {
+            console.log(`Added ${answers.departmentName} to the database`);
+            askPromptQuestions();
+          })
+          .catch((error) => {
+            console.log(error);
+            askPromptQuestions();
+          });
       });
-    })
-    .then(() => askPromptQuestions);
-}
+    }
 
 function addEmployee() {
   // const employee = { information from prompt I have yet to create}
