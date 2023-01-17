@@ -11,6 +11,7 @@ LEFT JOIN department
 ON role.department_id = department.id;
 
 -- view all employees
+-- employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to.
 SELECT
 -- need two joins
 -- department name onto role
@@ -20,6 +21,7 @@ SELECT
 INSERT INTO department (name) VALUES (?);
 
 -- add role
+--  name, salary, and department for the role and that role is added to the database.
 INSERT INTO role 
 
 -- add employee
