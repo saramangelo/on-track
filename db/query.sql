@@ -16,6 +16,9 @@ SELECT
 -- need two joins
 -- department name onto role
 -- department name onto employee
+SELECT employee.id, first_name, last_name FROM employee
+LEFT JOIN role
+ON employee.role_id = role.id;
 
 -- add department
 INSERT INTO department (name) VALUES (?);
