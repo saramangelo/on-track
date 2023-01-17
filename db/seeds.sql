@@ -9,17 +9,17 @@ VALUES
 ("Sales"),
 ("IT");
 
-INSERT INTO role (title, salary, department_id)
+INSERT INTO role (id, title, salary, department_id)
 VALUES
-("Manager", 150000, 1),
-("Recruiter", 50000, 2),
-("Frontend Developer", 45000, 3),
-("Backend Developer", 55000, 3),
-("UX/UI Developer", 40000, 3),
-("Analyst", 100000, 4);
-("Accountant", 75000, 4),
-("Salesperson", 65000, 5),
-("Technician", 45000, 6);
+(001, "Manager", 150000, 1),
+(002, "Recruiter", 50000, 2),
+(003, "Frontend Developer", 45000, 3),
+(004, "Backend Developer", 55000, 3),
+(005, "UX/UI Developer", 40000, 3),
+(006, "Analyst", 100000, 4);
+(007, "Accountant", 75000, 4),
+(008, "Salesperson", 65000, 5),
+(009, "Technician", 45000, 6);
 
 -- manager_id?
 INSERT INTO employee (first_name, last_name, role_id, manager_id)

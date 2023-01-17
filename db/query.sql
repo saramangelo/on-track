@@ -19,7 +19,7 @@ INSERT INTO role
 INSERT INTO employee (first_name) VALUES (?);
 
 -- update employee role
-UPDATE employee SET role
+UPDATE employee SET "column name" = "value..."
 
 -- JOINS
 
