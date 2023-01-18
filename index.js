@@ -142,9 +142,9 @@ function addRole() {
           choices: departmentChoices,
         },
       ]).then((answers) => {
-        Queries.addDepartment(answers.departmentName)
+        Queries.addDepartment(answers.departmentId)
           .then((response) => {
-            console.log(`Added ${answers.departmentName} to the database`);
+            console.log(`Added ${answers.departmentId} to the database`);
             askPromptQuestions();
           })
           .catch((error) => {
@@ -156,14 +156,36 @@ function addRole() {
 
 function addEmployee() {
   // const employee = { information from prompt I have yet to create}
-  Queries.addEmployee(employee);
+  const employee = [
+    {
+      name: "firstName",
+      message: "What is the employee's first name?",
+      type: 'input',
+    },
+    {
+      name: "lastName",
+      message: "What is the employee's last name?",
+      type: 'input',
+    },
+    {
+      name: "role",
+      message: "What is the employee's role?",
+      type: 'input',
+    },
+    {
+      name: "manager",
+      message: "Who is the employee's manager?",
+      type: 'input',
+    },
+  ]
+inquirer.prompt(employee)
+.then()
+  Queries.addEmployee();
 }
 
 function updateEmployeeRole() {
   Queries.updateEmployeeRole();
 }
 
-// I need to update with either more prompts / a db.query to CRUD db
-// console.table is like console log to display table
 
 init();
