@@ -114,13 +114,13 @@ function addDepartment() {
 }
 
 function addRole() {
-  Queries.addRole().then(([rows]) => {
-    let departments = rows;
-    const departmentChoices = departments.map(({ id, name }) => ({
-      name: name,
-      value: id,
-    }));
-  });
+  // Queries.addDepartment().then(([rows]) => {
+  //   let departments = rows;
+  //   const departmentChoices = departments.map(({ id, name }) => ({
+  //     name: name,
+  //     value: id,
+  //   }));
+  // });
   inquirer
     .prompt([
       {
@@ -134,16 +134,16 @@ function addRole() {
         type: "input",
       },
       {
-        type: "list",
+        type: "input",
         name: "departmentId",
         message: "Which department does the role belong to?",
         choices: departmentChoices,
       },
     ])
     .then((answers) => {
-      Queries.addRole(answers.departmentId)
+      Queries.addRole(answers.title, answers.salary, answers.departmentId)
         .then((response) => {
-          console.log(`Added ${answers.departmentId} to the database`);
+          console.log(`Added Role to the database`);
           askPromptQuestions();
         })
         .catch((error) => {
