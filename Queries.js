@@ -24,7 +24,10 @@ class Queries {
 
   viewAllEmployees() {
     // this needs to present a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
-    return this.connection.promise().query("SELECT * FROM employees");
+    return this.connection.promise().query(`SELECT employee.id, employee.first_name, employee.last_name, manager.first_name AS manager, role.title, role.salary FROM employee
+    LEFT JOIN employee manager ON manager.id = employee.manager_id
+    LEFT JOIN role
+    ON employee.role_id = role.id;`);
   }
 
   addDepartment(departmentName) {

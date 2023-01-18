@@ -115,6 +115,7 @@ function addDepartment() {
 }
 
 function addRole() {
+  // viewAllDepartments()
   Queries.addRole()
     .then(([rows]) => {
       let departments = rows;

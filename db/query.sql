@@ -16,7 +16,8 @@ SELECT
 -- need two joins
 -- department name onto role
 -- department name onto employee
-SELECT employee.id, first_name, last_name FROM employee
+SELECT employee.id, employee.first_name, employee.last_name, manager.first_name AS manager, role.title, role.salary FROM employee
+LEFT JOIN employee manager ON manager.id = employee.manager_id
 LEFT JOIN role
 ON employee.role_id = role.id;
 
