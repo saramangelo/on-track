@@ -91,7 +91,7 @@ function viewAllEmployees() {
       let employees = rows;
       console.table(employees);
     })
-    .then(() => askPromptQuestions);
+    .then(() => askPromptQuestions());
 }
 
 function addDepartment() {
