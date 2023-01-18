@@ -46,11 +46,11 @@ class Queries {
     .query("INSERT INTO role (title, salary, department_id) VALUES (?,?,?)", [title, salary, departmentId]);
   }
 
-  addEmployee() {
+  addEmployee(first_name, last_name, role, manager) {
     // this needs to have user be prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
     return this.connection
       .promise()
-      .query("INSERT INTO employee (first_name, last_name, role, manager) VALUES (?,?,?,?)");
+      .query("INSERT INTO employee (first_name, last_name, role, manager) VALUES (?,?,?,?)", [first_name, last_name, role, manager]);
   }
 
   updateEmployeeRole(employeeId, roleId) {

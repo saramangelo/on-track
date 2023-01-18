@@ -58,10 +58,7 @@ function askPromptQuestions() {
       }
       if (answers.optionSelection === "Update an employee role") {
         updateEmployeeRole();
-        // query db to list emp
-        // query specific emp
-        // update spec emp
-        //
+ 
       }
       if (answers.optionSelection === "Start over") {
         return askPromptQuestions();
@@ -117,7 +114,6 @@ function addDepartment() {
 }
 
 function addRole() {
-  // viewAllDepartments()
   Queries.addRole().then(([rows]) => {
     let departments = rows;
     const departmentChoices = departments.map(({ id, name }) => ({
@@ -145,7 +141,7 @@ function addRole() {
       },
     ])
     .then((answers) => {
-      Queries.addDepartment(answers.departmentId)
+      Queries.addRole(answers.departmentId)
         .then((response) => {
           console.log(`Added ${answers.departmentId} to the database`);
           askPromptQuestions();
@@ -158,7 +154,6 @@ function addRole() {
 }
 
 function addEmployee() {
-  // const employee = { information from prompt I have yet to create}
   const employee = [
     {
       name: "firstName",
@@ -181,8 +176,14 @@ function addEmployee() {
       type: "input",
     },
   ];
-  inquirer.prompt(employee).then();
-  Queries.addEmployee();
+  inquirer.prompt(employee).then((answers) => {
+    Queries.addEmployee(answers.firstName, answers.lastName, answers.role, answers.manager)
+    .then((response) => {
+      console.log('Added Employee to the database');
+      askPromptQuestions();
+    })
+  });
+
 }
 
 function updateEmployeeRole() {
