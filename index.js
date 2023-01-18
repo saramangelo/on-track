@@ -95,64 +95,67 @@ function viewAllEmployees() {
 }
 
 function addDepartment() {
-  inquirer.prompt([
-    {
-      name: "departmentName",
-      message: "What is the name of the department?",
-      type: "input",
-    },
-  ]).then((answers) => {
-    Queries.addDepartment(answers.departmentName)
-      .then((response) => {
-        console.log(`Added ${answers.departmentName} to the database`);
-        askPromptQuestions();
-      })
-      .catch((error) => {
-        console.log(error);
-        askPromptQuestions();
-      });
-  });
+  inquirer
+    .prompt([
+      {
+        name: "departmentName",
+        message: "What is the name of the department?",
+        type: "input",
+      },
+    ])
+    .then((answers) => {
+      Queries.addDepartment(answers.departmentName)
+        .then((response) => {
+          console.log(`Added ${answers.departmentName} to the database`);
+          askPromptQuestions();
+        })
+        .catch((error) => {
+          console.log(error);
+          askPromptQuestions();
+        });
+    });
 }
 
 function addRole() {
   // viewAllDepartments()
-  Queries.addRole()
-    .then(([rows]) => {
-      let departments = rows;
-      const departmentChoices = departments.map(({ id, name }) => ({
-        name: name,
-        value: id,
-      }))
+  Queries.addRole().then(([rows]) => {
+    let departments = rows;
+    const departmentChoices = departments.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
+  });
+  inquirer
+    .prompt([
+      {
+        name: "title",
+        message: "What is the name of the role?",
+        type: "input",
+      },
+      {
+        name: "salary",
+        message: "What is the salary of the role?",
+        type: "input",
+      },
+      {
+        type: "list",
+        name: "departmentId",
+        message: "Which department does the role belong to?",
+        choices: departmentChoices,
+      },
+    ])
+    .then((answers) => {
+      Queries.addDepartment(answers.departmentId)
+        .then((response) => {
+          console.log(`Added ${answers.departmentId} to the database`);
+          askPromptQuestions();
+        })
+        .catch((error) => {
+          console.log(error);
+          askPromptQuestions();
+        });
     });
-      inquirer.prompt([
-        {
-          name: "title",
-          message: "What is the name of the role?",
-          type: 'input',
-        },
-        {
-          name: "salary",
-          message: "What is the salary of the role?",
-          type: 'input',
-        },
-        {
-          type: "list",
-          name: "departmentId",
-          message: "Which department does the role belong to?",
-          choices: departmentChoices,
-        },
-      ]).then((answers) => {
-        Queries.addDepartment(answers.departmentId)
-          .then((response) => {
-            console.log(`Added ${answers.departmentId} to the database`);
-            askPromptQuestions();
-          })
-          .catch((error) => {
-            console.log(error);
-            askPromptQuestions();
-          });
-      });
-    }
+}
 
 function addEmployee() {
   // const employee = { information from prompt I have yet to create}
@@ -160,32 +163,70 @@ function addEmployee() {
     {
       name: "firstName",
       message: "What is the employee's first name?",
-      type: 'input',
+      type: "input",
     },
     {
       name: "lastName",
       message: "What is the employee's last name?",
-      type: 'input',
+      type: "input",
     },
     {
       name: "role",
       message: "What is the employee's role?",
-      type: 'input',
+      type: "input",
     },
     {
       name: "manager",
       message: "Who is the employee's manager?",
-      type: 'input',
+      type: "input",
     },
-  ]
-inquirer.prompt(employee)
-.then()
+  ];
+  inquirer.prompt(employee).then();
   Queries.addEmployee();
 }
 
 function updateEmployeeRole() {
-  Queries.updateEmployeeRole();
+  Queries.viewAllEmployees().then(([employees]) => {
+    const employeeArray = employees.map(({ id, first_name, last_name }) => {
+      return {
+        name: `${first_name} ${last_name}`,
+        value: id,
+      };
+    });
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "employeeId",
+          message: "Which employee's role would you like to update?",
+          choices: employeeArray,
+        },
+      ])
+      .then(({ employeeId }) => {
+        Queries.viewAllRoles().then(([roles]) => {
+          const roleArray = roles.map(({ id, title }) => {
+            return {
+              name: title,
+              value: id,
+            };
+          });
+          inquirer
+            .prompt([
+              {
+                type: "list",
+                name: "roleId",
+                message: "Which role would you like to update the employee to?",
+                choices: roleArray,
+              },
+            ])
+            .then(({ roleId }) => {
+              Queries.updateEmployeeRole(employeeId, roleId)
+                .then(() => console.log("Updated Employees Role"))
+                .then(() => askPromptQuestions());
+            });
+        });
+      });
+  });
 }
-
 
 init();

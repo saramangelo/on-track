@@ -22,6 +22,7 @@ class Queries {
     ON role.department_id = department.id`);
   }
 
+
   viewAllEmployees() {
     // this needs to present a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to
     return this.connection.promise().query(`SELECT employee.id, employee.first_name, employee.last_name, manager.first_name AS manager, role.title, role.salary FROM employee
@@ -51,9 +52,9 @@ class Queries {
       .query("INSERT INTO employee (first_name, last_name, role, manager) VALUES (?,?,?,?)");
   }
 
-  updateEmployeeRole() {
+  updateEmployeeRole(employeeId, roleId) {
     // this needs to have user be prompted to select an employee to update and their new role and this information is updated in the database
-    return this.connection.promise().query("UPDATE employee SET ");
+    return this.connection.promise().query("UPDATE employee SET role_id = ? WHERE employee.id = ?", [roleId, employeeId]);
   }
 }
 
