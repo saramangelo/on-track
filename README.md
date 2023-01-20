@@ -8,7 +8,7 @@ On-track is a Node.js command-line application that accepts user input. When the
 ## Link to Video Demo
 [https://drive.google.com/file/d/1gJu9VSqKqZk-ng1FWhxEBwc9APRwzTyA/view](https://drive.google.com/file/d/1gJu9VSqKqZk-ng1FWhxEBwc9APRwzTyA/view)
   
-## Table of Contents (Optional)
+## Table of Contents
     
 - [Installation](#installation)
 - [Usage](#usage)
