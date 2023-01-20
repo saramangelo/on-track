@@ -50,12 +50,16 @@ class Queries {
     // this needs to have user be prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
     return this.connection
       .promise()
-      .query("INSERT INTO employee (first_name, last_name, role, manager) VALUES (?,?,?,?)", [first_name, last_name, role, manager]);
+      .query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)", [first_name, last_name, role, manager]);
   }
 
   updateEmployeeRole(employeeId, roleId) {
     // this needs to have user be prompted to select an employee to update and their new role and this information is updated in the database
     return this.connection.promise().query("UPDATE employee SET role_id = ? WHERE employee.id = ?", [roleId, employeeId]);
+  }
+
+  viewManager(){
+    return this.connection.promise().query("SELECT * FROM employee WHERE manager_id is null")
   }
 }
 

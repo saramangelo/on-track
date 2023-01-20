@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
 const Queries = require("./Queries");
+const connection = require('./db/connection');
 // inquirer to prompt in command line
 
 // array of questions
@@ -114,7 +115,7 @@ function addDepartment() {
 }
 
 function addRole() {
-  Queries.addDepartment().then(([rows]) => {
+  Queries.viewAllDepartments().then(([rows]) => {
     let department = rows;
     const departmentChoices = department.map(({ id, name }) => {
       return {
@@ -136,7 +137,7 @@ function addRole() {
         type: "input",
       },
       {
-        type: "input",
+        type: "list",
         name: "department_id",
         message: "Which department does the role belong to?",
         choices: departmentChoices,
@@ -158,6 +159,22 @@ function addRole() {
 };
 
 function addEmployee() {
+  Queries.viewAllRoles().then(([rows]) => {
+    let role = rows;
+    const roleChoices = role.map(({ id, title }) => {
+      return {
+      name: `${title}`,
+      value: id,
+    }
+  })
+  Queries.viewManager().then(([rows]) => {
+    let manager = rows;
+    const managerChoices = manager.map(({ id, first_name, last_name }) => {
+      return {
+      name: `${first_name} ${last_name}`,
+      value: id,
+    }
+  });
   const employee = [
     {
       name: "firstName",
@@ -172,12 +189,14 @@ function addEmployee() {
     {
       name: "role",
       message: "What is the employee's role?",
-      type: "input",
+      type: "list",
+      choices: roleChoices
     },
     {
       name: "manager",
       message: "Who is the employee's manager?",
-      type: "input",
+      type: "list",
+      choices: managerChoices
     },
   ];
   inquirer.prompt(employee).then((answers) => {
@@ -185,9 +204,10 @@ function addEmployee() {
     .then((response) => {
       console.log('Added Employee to the database');
       askPromptQuestions();
-    })
   });
-
+})
+  })
+})
 }
 
 function updateEmployeeRole() {
