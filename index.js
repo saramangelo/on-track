@@ -1,7 +1,6 @@
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
 const Queries = require("./Queries");
-const connection = require('./db/connection');
 // inquirer to prompt in command line
 
 // array of questions
